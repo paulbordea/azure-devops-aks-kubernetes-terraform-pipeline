@@ -46,6 +46,7 @@ stages:
                backendAzureRmKey: 'aks-$(DEV_ENVIRONMENT).tfstate'
                allowTelemetryCollection: false
            - task: TerraformCLI@0
+             displayName: Terraform Destroy
              inputs:
                command: 'destroy'
                workingDirectory: '$(Pipeline.Workspace)/terraform-manifests-out'
