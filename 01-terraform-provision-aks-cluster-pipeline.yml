@@ -5,12 +5,13 @@ pool:
   vmImage: ubuntu-latest
 
 stages:
-- stage: TerraformValidate
+- stage: TerraformValidateStage
   jobs:
     - job: TerraformValidateJob
       continueOnError: false
       steps:
       - task: PublishPipelineArtifact@1
+        displayName: Publish Artifacts
         inputs:
           targetPath: '$(System.DefaultWorkingDirectory)/terraform-manifests'
           artifact: 'terraform-manifests-out'
@@ -30,6 +31,7 @@ stages:
           backendAzureRmStorageAccountName: 'pb1985terraformstorage'
           backendAzureRmContainerName: 'tfstatefiles'
           backendAzureRmKey: 'aks-base.tfstate'
+          allowTelemetryCollection: false
       - task: TerraformCLI@0
         displayName: Terraform Validate
         inputs:
